@@ -10,7 +10,7 @@ using BizHawk.Emulation.Common;
 // ReSharper disable PossibleInvalidCastExceptionInForeachLoop
 namespace BizHawk.Client.Common.RamSearchEngine
 {
-	public class RamSearchEngine
+	internal class RamSearchEngine : IRamSearchEngine
 	{
 		private Compare _compareTo = Compare.Previous;
 

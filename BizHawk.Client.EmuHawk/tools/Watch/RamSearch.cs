@@ -28,7 +28,7 @@ namespace BizHawk.Client.EmuHawk
 		// TODO: DoSearch grabs the state of widgets and passes it to the engine before running, so rip out code that is attempting to keep the state up to date through change events
 		private string _currentFileName = "";
 
-		private RamSearchEngine _searches;
+		private IRamSearchEngine _searches;
 		private SearchEngineSettings _settings;
 
 		private int _defaultWidth;
@@ -115,7 +115,7 @@ namespace BizHawk.Client.EmuHawk
 			RamSearchMenu.Items.Add(WatchListView.ToColumnsMenu(ColumnToggleCallback));
 
 			_settings = new SearchEngineSettings(MemoryDomains);
-			_searches = new RamSearchEngine(_settings, MemoryDomains);
+			_searches = RamSearchEngineFactory.Create(_settings, MemoryDomains);
 
 			ErrorIconButton.Visible = false;
 			_dropdownDontfire = true;
@@ -296,7 +296,7 @@ namespace BizHawk.Client.EmuHawk
 		public void Restart()
 		{
 			_settings = new SearchEngineSettings(MemoryDomains);
-			_searches = new RamSearchEngine(_settings, MemoryDomains);
+			_searches = RamSearchEngineFactory.Create(_settings, MemoryDomains);
 			MessageLabel.Text = "Search restarted";
 			DoDomainSizeCheck();
 			NewSearch();
@@ -323,7 +323,7 @@ namespace BizHawk.Client.EmuHawk
 			var compareVal = _searches.CompareValue;
 			var differentBy = _searches.DifferentBy;
 
-			_searches = new RamSearchEngine(_settings, MemoryDomains, compareTo, compareVal, differentBy);
+			_searches = RamSearchEngineFactory.Create(_settings, MemoryDomains, compareTo, compareVal, differentBy);
 			_searches.Start();
 			if (Settings.AlwaysExcludeRamWatch)
 			{
