@@ -160,11 +160,11 @@ namespace BizHawk.Client.EmuHawk
 			if (_searches.Count > 0)
 			{
 				var nextColor = Color.White;
+				var search = _searches[index];
+				var isCheat = Global.CheatList.IsActive(_settings.Domain, search.Address);
+				var isWeeded = Settings.PreviewMode && !_forcePreviewClear && _searches.Preview(search.Address);
 
-				var isCheat = Global.CheatList.IsActive(_settings.Domain, _searches[index].Address);
-				var isWeeded = Settings.PreviewMode && !_forcePreviewClear && _searches.Preview(_searches[index].Address);
-
-				if (_searches[index].Address >= _searches[index].Domain.Size)
+				if (search.Address >= search.Domain.Size)
 				{
 					nextColor = Color.PeachPuff;
 				}
