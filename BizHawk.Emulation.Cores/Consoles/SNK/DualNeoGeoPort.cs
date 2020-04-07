@@ -6,6 +6,7 @@ using BizHawk.Emulation.Cores.Waterbox;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
@@ -302,6 +303,13 @@ namespace BizHawk.Emulation.Cores.Consoles.SNK
 			{
 				return _controller.IsPressed(_prefix + button);
 			}
+
+			public IReadOnlyCollection<(string Name, int Strength)> GetHapticsSnapshot()
+				=> _controller.GetHapticsSnapshot()
+					.Where(kvp => kvp.Name.StartsWith(_prefix))
+					.ToArray();
+
+			public void SetHapticChannelStrength(string name, int strength) => _controller.SetHapticChannelStrength(_prefix + name, strength);
 		}
 
 		public ControllerDefinition ControllerDefinition => DualNeoGeoPortController;

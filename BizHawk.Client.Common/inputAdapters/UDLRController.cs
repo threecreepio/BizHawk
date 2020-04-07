@@ -149,6 +149,10 @@ namespace BizHawk.Client.Common
 			return Source.AxisValue(name);
 		}
 
+		public IReadOnlyCollection<(string Name, int Strength)> GetHapticsSnapshot() => Source.GetHapticsSnapshot();
+
+		public void SetHapticChannelStrength(string name, int strength) => Source.SetHapticChannelStrength(name, strength);
+
 		private readonly HashSet<string> _unpresses = new HashSet<string>();
 
 		public IController Source { get; set; }

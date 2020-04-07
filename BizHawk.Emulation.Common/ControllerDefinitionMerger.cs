@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BizHawk.Emulation.Common
 {
@@ -88,6 +89,13 @@ namespace BizHawk.Emulation.Common
 			{
 				return _src.AxisValue(_remaps[name]);
 			}
+
+			public IReadOnlyCollection<(string Name, int Strength)> GetHapticsSnapshot()
+				=> _src.GetHapticsSnapshot()
+					.Select(hapticsEntry => (_remaps.First(kvpRemap => kvpRemap.Value == hapticsEntry.Name).Value, hapticsEntry.Strength)) // reverse lookup
+					.ToArray();
+
+			public void SetHapticChannelStrength(string name, int strength) => _src.SetHapticChannelStrength(_remaps[name], strength);
 		}
 
 		public IController UnMerge(IController c)

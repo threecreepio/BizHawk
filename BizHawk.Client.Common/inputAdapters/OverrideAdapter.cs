@@ -33,6 +33,9 @@ namespace BizHawk.Client.Common
 				? _axisOverrides[name]
 				: 0.0F;
 		
+		public IReadOnlyCollection<(string Name, int Strength)> GetHapticsSnapshot() => throw new NotImplementedException(); // no idea --yoshi
+
+		public void SetHapticChannelStrength(string name, int strength) => throw new NotImplementedException();
 
 		public IEnumerable<string> Overrides => _overrides.Select(kvp => kvp.Key);
 

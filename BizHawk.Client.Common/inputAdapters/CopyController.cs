@@ -1,4 +1,6 @@
-﻿using BizHawk.Emulation.Common;
+﻿using System.Collections.Generic;
+
+using BizHawk.Emulation.Common;
 
 namespace BizHawk.Client.Common
 {
@@ -18,6 +20,10 @@ namespace BizHawk.Client.Common
 		{
 			return Curr.AxisValue(name);
 		}
+
+		public IReadOnlyCollection<(string Name, int Strength)> GetHapticsSnapshot() => Curr.GetHapticsSnapshot();
+
+		public void SetHapticChannelStrength(string name, int strength) => Curr.SetHapticChannelStrength(name, strength);
 
 		public IController Source { get; set; }
 

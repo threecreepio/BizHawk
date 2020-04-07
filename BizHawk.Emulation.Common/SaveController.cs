@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -95,5 +96,12 @@ namespace BizHawk.Emulation.Common
 		{
 			return _buttons[name];
 		}
+
+		public IReadOnlyCollection<(string Name, int Strength)> GetHapticsSnapshot()
+			=> _buttons.Where(kvp => kvp.Key.EndsWith("Haptic"))
+				.Select(kvp => (kvp.Key, unchecked((int) kvp.Value)))
+				.ToArray();
+
+		public void SetHapticChannelStrength(string name, int strength) => _buttons[name] = unchecked((float) strength); // ignore warnings of an unnecessary cast, I want to keep the raw 32 bits exactly the same
 	}
 }

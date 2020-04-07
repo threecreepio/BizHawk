@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using BizHawk.Common;
 using BizHawk.Emulation.Common;
@@ -20,6 +21,10 @@ namespace BizHawk.Client.Common
 		{
 			return _myFloatControls[name];
 		}
+
+		public IReadOnlyCollection<(string Name, int Strength)> GetHapticsSnapshot() => throw new NotImplementedException(); // no idea --yoshi
+
+		public void SetHapticChannelStrength(string name, int strength) => throw new NotImplementedException();
 
 		#endregion
 

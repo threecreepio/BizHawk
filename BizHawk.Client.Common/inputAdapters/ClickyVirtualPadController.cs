@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BizHawk.Emulation.Common;
 
 namespace BizHawk.Client.Common
@@ -21,6 +22,10 @@ namespace BizHawk.Client.Common
 		{
 			return 0.0f;
 		}
+
+		public IReadOnlyCollection<(string Name, int Strength)> GetHapticsSnapshot() => Array.Empty<(string, int)>();
+
+		public void SetHapticChannelStrength(string name, int strength) {}
 
 		/// <summary>
 		/// Call this once per frame to do the timekeeping for the hold and release

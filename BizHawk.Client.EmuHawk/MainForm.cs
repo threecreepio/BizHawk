@@ -586,6 +586,8 @@ namespace BizHawk.Client.EmuHawk
 				// autohold/autofire must not be affected by the following inputs
 				Global.InputManager.ActiveController.Overrides(Global.InputManager.ButtonOverrideAdapter);
 
+				// maybe clear haptics here? --yoshi
+
 				if (Tools.Has<LuaConsole>() && !SuppressLua)
 				{
 					Tools.LuaConsole.ResumeScripts(false);
@@ -593,6 +595,8 @@ namespace BizHawk.Client.EmuHawk
 
 				StepRunLoop_Core();
 				StepRunLoop_Throttle();
+
+				Input.Instance.SetHapticsFromSnapshot(EmulatorPaused || IsTurboing ? Array.Empty<(string, int)>() : Global.InputManager.ActiveController.GetHapticsSnapshot());
 
 				Render();
 

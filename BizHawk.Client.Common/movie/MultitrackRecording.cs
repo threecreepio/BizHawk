@@ -1,4 +1,7 @@
-﻿using BizHawk.Emulation.Common;
+﻿using System;
+using System.Collections.Generic;
+
+using BizHawk.Emulation.Common;
 
 namespace BizHawk.Client.Common
 {
@@ -106,6 +109,10 @@ namespace BizHawk.Client.Common
 		{
 			return Source.AxisValue(RemapButtonName(button));
 		}
+
+		public IReadOnlyCollection<(string Name, int Strength)> GetHapticsSnapshot() => throw new NotImplementedException(); // no idea --yoshi
+
+		public void SetHapticChannelStrength(string name, int strength) => throw new NotImplementedException();
 
 		private string RemapButtonName(string button)
 		{

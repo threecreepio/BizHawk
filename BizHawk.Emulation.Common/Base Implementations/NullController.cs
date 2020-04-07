@@ -1,4 +1,6 @@
-﻿namespace BizHawk.Emulation.Common
+﻿using System.Collections.Generic;
+
+namespace BizHawk.Emulation.Common
 {
 	/// <summary>
 	/// A empty implementation of IController that represents the lack of
@@ -21,6 +23,10 @@
 		{
 			return 0f;
 		}
+
+		public IReadOnlyCollection<(string Name, int Strength)> GetHapticsSnapshot() => Array.Empty<(string, int)>();
+
+		public void SetHapticChannelStrength(string name, int strength) {}
 
 		public static readonly NullController Instance = new NullController();
 	}

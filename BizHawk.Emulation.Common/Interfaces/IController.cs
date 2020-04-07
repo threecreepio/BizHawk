@@ -1,4 +1,6 @@
-﻿namespace BizHawk.Emulation.Common
+﻿using System.Collections.Generic;
+
+namespace BizHawk.Emulation.Common
 {
 	public interface IController
 	{
@@ -16,5 +18,12 @@
 		/// Returns the state of a float control
 		/// </summary>
 		float AxisValue(string name);
+
+		/// <see cref="SetHapticChannelStrength"/>
+		IReadOnlyCollection<(string Name, int Strength)> GetHapticsSnapshot();
+
+		/// <param name="name">a haptic axis name e.g. "P1 Mono Haptic", "P2 Left Haptic"</param>
+		/// <param name="strength">0..<see cref="int.MaxValue"/></param>
+		void SetHapticChannelStrength(string name, int strength);
 	}
 }

@@ -70,6 +70,10 @@ namespace BizHawk.Client.Common
 			return _myAxisControls[name];
 		}
 
+		public IReadOnlyCollection<(string Name, int Strength)> GetHapticsSnapshot() => throw new NotImplementedException(); // no idea --yoshi
+
+		public void SetHapticChannelStrength(string name, int strength) => throw new NotImplementedException();
+
 		#endregion
 
 		#region IMovieController Implementation

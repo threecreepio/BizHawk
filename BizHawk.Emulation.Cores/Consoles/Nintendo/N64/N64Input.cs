@@ -33,7 +33,8 @@ namespace BizHawk.Emulation.Cores.Nintendo.N64
 			AxisConstraints =
 			{
 				new ControllerDefinition.AxisConstraint { Class = "Natural Circle", Type = ControllerDefinition.AxisConstraintType.Circular, Params = new object[] {"P1 X Axis", "P1 Y Axis", 127.0f} }
-			}
+			},
+			HapticsChannels = { "P1 Mono Haptic" }
 		};
 
 		private readonly IInputPollable _emuCore;
@@ -44,6 +45,7 @@ namespace BizHawk.Emulation.Cores.Nintendo.N64
 			_api = new mupen64plusInputApi(core);
 
 			_api.SetM64PInputCallback(GetControllerInput);
+			_api.OnRumbleChange += RumbleCallback;
 
 			core.VInterrupt += ShiftInputPolledBools;
 			for (int i = 0; i < controllerSettings.Length; ++i)
@@ -158,5 +160,7 @@ namespace BizHawk.Emulation.Cores.Nintendo.N64
 		{
 			_api.SetM64PControllerConnected(controller, connectionStatus);
 		}
+
+		private void RumbleCallback(int Control, int On) => Controller?.SetHapticChannelStrength($"P{Control} Mono Haptic", On);
 	}
 }

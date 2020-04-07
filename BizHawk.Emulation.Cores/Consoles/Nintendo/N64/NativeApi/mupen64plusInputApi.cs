@@ -55,7 +55,7 @@ namespace BizHawk.Emulation.Cores.Nintendo.N64.NativeApi
 		/// <summary>
 		/// Event fired when mupen changes rumble pak status
 		/// </summary>
-		event RumbleCallback OnRumbleChange;
+		internal event RumbleCallback OnRumbleChange;
 
 		public mupen64plusInputApi(mupen64plusApi core)
 		{

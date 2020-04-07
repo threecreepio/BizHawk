@@ -349,16 +349,15 @@ namespace BizHawk.Client.EmuHawk
 			AddItem("RightTrigger", () => state.Triggers.Right > dzt);
 		}
 
-		/// <summary>
-		/// Sets the gamepad's left and right vibration
-		/// We don't currently use this in Bizhawk - do we have any cores that support this?
-		/// </summary>
-		/// <param name="left"></param>
-		/// <param name="right"></param>
-		public void SetVibration(float left, float right) => OpenTKGamePad.SetVibration(
+		/// <remarks>multiplying by this maps the range 0..<see cref="int.MaxValue"/> onto 0.0..1.0 (as doubles for precision; <see cref="SetVibration"/> must cast it to a float afterwards for OpenTK)</remarks>
+		private const double HAPTIC_CONV_FACTOR = 1.0 / int.MaxValue;
+
+		/// <param name="left">0..<see cref="int.MaxValue"/></param>
+		/// <param name="right">0..<see cref="int.MaxValue"/></param>
+		public void SetVibration(int left, int right) => OpenTKGamePad.SetVibration(
 			_deviceIndex,
-			_gamePadCapabilities?.HasLeftVibrationMotor == true ? left : 0,
-			_gamePadCapabilities?.HasRightVibrationMotor == true ? right : 0
+			_gamePadCapabilities?.HasLeftVibrationMotor == true ? (float) (left * HAPTIC_CONV_FACTOR) : 0.0f,
+			_gamePadCapabilities?.HasRightVibrationMotor == true ? (float) (right * HAPTIC_CONV_FACTOR) : 0.0f
 		);
 
 		#endregion

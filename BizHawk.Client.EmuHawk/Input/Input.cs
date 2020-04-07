@@ -225,6 +225,7 @@ namespace BizHawk.Client.EmuHawk
 		private readonly WorkingDictionary<string, bool> _lastState = new WorkingDictionary<string, bool>();
 		private readonly WorkingDictionary<string, float> _axisValues = new WorkingDictionary<string, float>();
 		private readonly WorkingDictionary<string, float> _axisDeltas = new WorkingDictionary<string, float>();
+		private IReadOnlyCollection<(string Name, int Strength)> _hapticFeedback = Array.Empty<(string, int)>();
 		private bool _trackDeltas;
 		private bool _ignoreEventsNextPoll;
 
@@ -400,6 +401,20 @@ namespace BizHawk.Client.EmuHawk
 								if (_trackDeltas) _axisDeltas[n] += Math.Abs(f - _axisValues[n]);
 								_axisValues[n] = f;
 							}
+
+							foreach (var (name, strength) in _hapticFeedback)
+							{
+								if (name == $"{pad.InputNamePrefix}Mono Haptic")
+								{
+									pad.SetVibration(strength, strength);
+									break;
+								}
+								if (name == $"{pad.InputNamePrefix}Left Haptic")
+								{
+									// assuming presence of left channel implies that there's a right channel; given no core has dual-channel haptics at time of writing, this seems reasonable --yoshi
+									pad.SetVibration(strength, _hapticFeedback.First(tuple => tuple.Name == $"{pad.InputNamePrefix}Right Haptic").Strength);
+								}
+							}
 						}
 
 #if false
@@ -533,6 +548,8 @@ namespace BizHawk.Client.EmuHawk
 				_trackDeltas = false;
 			}
 		}
+
+		public void SetHapticsFromSnapshot(IReadOnlyCollection<(string Name, int Strength)> snapshot) => _hapticFeedback = snapshot;
 
 		public void Update()
 		{
