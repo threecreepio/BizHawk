@@ -32,6 +32,7 @@ using BizHawk.Emulation.Common.Base_Implementations;
 using BizHawk.Emulation.Cores.Nintendo.SNES9X;
 using BizHawk.Emulation.Cores.Consoles.SNK;
 using BizHawk.Emulation.Cores.Consoles.Nintendo.Gameboy;
+using BizHawk.Emulation.Cores.Nintendo.N64.NativeApi;
 
 namespace BizHawk.Client.EmuHawk
 {
@@ -201,6 +202,7 @@ namespace BizHawk.Client.EmuHawk
 			}
 
 			GlobalWin.MainForm = this;
+			mupen64plusInputApi.DebuggingDontAsk = AddOnScreenMessage;
 			Rewinder = new Rewinder
 			{
 				MessageCallback = AddOnScreenMessage

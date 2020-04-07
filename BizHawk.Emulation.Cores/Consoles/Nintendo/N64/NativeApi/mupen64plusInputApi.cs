@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace BizHawk.Emulation.Cores.Nintendo.N64.NativeApi
 {
-	class mupen64plusInputApi
+	public class mupen64plusInputApi
 	{
 		IntPtr InpDll;
 
@@ -82,6 +82,7 @@ namespace BizHawk.Emulation.Cores.Nintendo.N64.NativeApi
 
 		private void FireOnRumbleChange(int Control, int on)
 		{
+			DebuggingDontAsk?.Invoke($"SetHapticChannelStrength(\"P{Control} Mono Haptic\", {on})");
 			OnRumbleChange?.Invoke(Control, @on);
 		}
 
@@ -94,5 +95,7 @@ namespace BizHawk.Emulation.Cores.Nintendo.N64.NativeApi
 		{
 			InpSetControllerConnected(controller, connected?1:0);
 		}
+
+		public static Action<string> DebuggingDontAsk;
 	}
 }
