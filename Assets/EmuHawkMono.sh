@@ -21,7 +21,7 @@ export LD_LIBRARY_PATH="$PWD:$libpath"
 if [ "$1" = "--mono-no-redirect" ]; then
 	shift
 	printf "(received --mono-no-redirect, stdout was not captured)\n" >EmuHawkMono_laststdout.txt
-	mono ./EmuHawk.exe "$@"
+	mono ./EmuHawkMono.exe "$@"
 else
-	mono ./EmuHawk.exe "$@" >EmuHawkMono_laststdout.txt
+	mono ./EmuHawkMono.exe "$@" >EmuHawkMono_laststdout.txt
 fi
