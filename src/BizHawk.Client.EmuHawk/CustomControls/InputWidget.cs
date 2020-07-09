@@ -39,7 +39,7 @@ namespace BizHawk.Client.EmuHawk
 
 		public InputWidget()
 		{
-			ContextMenu = new ContextMenu();
+			// ContextMenu = new ContextMenu();
 			_timer.Tick += Timer_Tick;
 			ClearBindings();
 			AutoTab = true;

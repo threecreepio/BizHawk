@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 	<Import Project="../MainSlnCommon.props" />
 	<PropertyGroup>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -7,9 +7,11 @@
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 		<DefineConstants>$(DefineConstants);EXE_PROJECT</DefineConstants>
 		<OutputPath>$(ProjectDir)../../output</OutputPath>
-		<TargetFramework>net48</TargetFramework>
+		<TargetFramework>net5.0</TargetFramework>
 		<TargetName>EmuHawk</TargetName>
+		<AssemblyName>EmuHawk</AssemblyName>
 		<ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+		<UseWindowsForms>true</UseWindowsForms>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
 		<OutputType>Exe</OutputType>
@@ -88,7 +90,6 @@
 		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="all" />
 		<PackageReference Include="Microsoft.VisualBasic" Version="10.3.0" />
 		<PackageReference Include="System.Net.Http" Version="4.3.4" />
-		<Reference Include="System.Windows.Forms" />
 	</ItemGroup>
 	<ItemGroup>
 		<Reference Include="GongShell" HintPath="$(ProjectDir)../../References/GongShell.dll" Private="true" />
