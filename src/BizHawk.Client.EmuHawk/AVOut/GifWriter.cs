@@ -3,6 +3,7 @@ using System.IO;
 using System.Drawing;
 
 using BizHawk.Client.Common;
+using BizHawk.Common;
 using BizHawk.Emulation.Common;
 
 using PcxFileTypePlugin.Quantize;
@@ -202,7 +203,7 @@ namespace BizHawk.Client.EmuHawk
 
 		public IDisposable AcquireVideoCodecToken(Config config)
 		{
-			return GifWriterForm.DoTokenForm(_dialogParent.SelfAsHandle, config);
+			return GifWriterForm.DoTokenForm(_dialogParent.AsWinFormsHandle(), config);
 		}
 
 		private void CalcDelay()
