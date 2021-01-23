@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading;
-using System.Windows.Forms;
+
 using BizHawk.Client.Common;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 using ICSharpCode.SharpZipLib.Zip.Compression;
@@ -648,7 +648,7 @@ namespace BizHawk.Client.EmuHawk
 			}
 			catch (Exception e)
 			{
-				MessageBox.Show($"JMD Worker Thread died:\n\n{e}");
+				_dialogParent.DialogController.ShowMessageBox($"JMD Worker Thread died:\n\n{e}");
 			}
 		}
 
