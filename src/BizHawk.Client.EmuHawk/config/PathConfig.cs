@@ -188,7 +188,7 @@ namespace BizHawk.Client.EmuHawk
 						{
 							if (Owner is FirmwaresConfig)
 							{
-								MessageBox.Show("C-C-C-Combo Breaker!", "Nice try, but");
+								_mainForm.DialogController.ShowMessageBox("C-C-C-Combo Breaker!", "Nice try, but");
 								return;
 							}
 
