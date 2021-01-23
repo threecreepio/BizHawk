@@ -251,7 +251,7 @@ namespace BizHawk.Client.EmuHawk
 
 		private void DummyLoadMacro(string path)
 		{
-			MovieZone loadZone = new MovieZone(path, Emulator, MovieSession, Tools);
+			MovieZone loadZone = new MovieZone(path, MainForm, Emulator, MovieSession, Tools);
 			_zones.Add(loadZone);
 			ZonesList.Items.Add($"{loadZone.Name} - length: {loadZone.Length}");
 		}
@@ -308,7 +308,7 @@ namespace BizHawk.Client.EmuHawk
 			if (this.ShowDialogWithTempMute(dialog) != DialogResult.OK) return null;
 
 			Config.RecentMacros.Add(dialog.FileName);
-			return new MovieZone(dialog.FileName, emulator ?? Emulator, MovieSession, tools ?? Tools);
+			return new MovieZone(dialog.FileName, MainForm, emulator ?? Emulator, MovieSession, tools ?? Tools);
 		}
 	}
 }

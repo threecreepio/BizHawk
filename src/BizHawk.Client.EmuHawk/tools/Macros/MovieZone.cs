@@ -4,6 +4,7 @@ using System.IO;
 
 using BizHawk.Emulation.Common;
 using BizHawk.Client.Common;
+using BizHawk.Common;
 
 namespace BizHawk.Client.EmuHawk
 {
@@ -223,7 +224,7 @@ namespace BizHawk.Client.EmuHawk
 			File.AppendAllLines(fileName, _log);
 		}
 
-		public MovieZone(string fileName, IEmulator emulator, IMovieSession movieSession, ToolManager tools)
+		public MovieZone(string fileName, IDialogController dialogController, IEmulator emulator, IMovieSession movieSession, ToolManager tools)
 			: this(emulator, tools, movieSession)
 		{
 			if (!File.Exists(fileName))
@@ -246,7 +247,7 @@ namespace BizHawk.Client.EmuHawk
 			{
 				if (!emuKeys.Contains(macro))
 				{
-					System.Windows.Forms.MessageBox.Show($"The selected macro is not compatible with the current emulator core.\nMacro controller: {readText[1]}\nMacro player count: {readText[2]}", "Error");
+					dialogController.ShowMessageBox($"The selected macro is not compatible with the current emulator core.\nMacro controller: {readText[1]}\nMacro player count: {readText[2]}", "Error");
 					return;
 				}
 			}
