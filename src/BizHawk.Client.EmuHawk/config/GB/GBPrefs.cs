@@ -1,15 +1,20 @@
 ﻿using System.Windows.Forms;
 using BizHawk.Client.Common;
+using BizHawk.Common;
 using BizHawk.Emulation.Common;
 using BizHawk.Emulation.Cores.Nintendo.Gameboy;
 
 namespace BizHawk.Client.EmuHawk
 {
-	public partial class GBPrefs : Form
+	public partial class GBPrefs : Form, IDialogParent
 	{
-		private GBPrefs()
+		public IDialogController DialogController { get; }
+
+		private GBPrefs(IDialogController dialogController)
 		{
+			DialogController = dialogController;
 			InitializeComponent();
+			gbPrefControl1.DialogParent = this;
 			Icon = Properties.Resources.GambatteIcon;
 		}
 
@@ -18,7 +23,7 @@ namespace BizHawk.Client.EmuHawk
 			var s = gb.GetSettings();
 			var ss = gb.GetSyncSettings();
 
-			using var dlg = new GBPrefs();
+			using var dlg = new GBPrefs(mainForm.DialogController);
 			dlg.gbPrefControl1.PutSettings(config, game, movieSession, s, ss);
 			dlg.gbPrefControl1.ColorGameBoy = gb.IsCGBMode();
 			if (mainForm.ShowDialogAsChild(dlg).IsOk())

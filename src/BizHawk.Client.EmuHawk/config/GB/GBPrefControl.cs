@@ -4,6 +4,7 @@ using System.Windows.Forms;
 
 using BizHawk.Emulation.Cores.Nintendo.Gameboy;
 using BizHawk.Client.Common;
+using BizHawk.Common;
 using BizHawk.Emulation.Common;
 
 namespace BizHawk.Client.EmuHawk
@@ -21,6 +22,10 @@ namespace BizHawk.Client.EmuHawk
 
 		[Browsable(false)]
 		public bool ColorGameBoy { get; set; }
+
+		/// <remarks>TODO <see cref="UserControl">UserControls</see> can be <see cref="IDialogParent">IDialogParents</see> too, the modal should still be tied to the parent <see cref="Form"/></remarks>
+		[Browsable(false)]
+		public IDialogParent DialogParent { private get; set; }
 
 		[Browsable(false)]
 		public bool SyncSettingsChanged { get; private set; }
@@ -62,11 +67,11 @@ namespace BizHawk.Client.EmuHawk
 		{
 			if (ColorGameBoy)
 			{
-				CGBColorChooserForm.DoCGBColorChooserFormDialog(ParentForm, _s);
+				CGBColorChooserForm.DoCGBColorChooserFormDialog(DialogParent, _s);
 			}
 			else
 			{
-				ColorChooserForm.DoColorChooserFormDialog(ParentForm, _config, _game, _s);
+				ColorChooserForm.DoColorChooserFormDialog(DialogParent, _config, _game, _s);
 			}
 		}
 
