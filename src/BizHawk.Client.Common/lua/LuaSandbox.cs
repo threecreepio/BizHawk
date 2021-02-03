@@ -18,6 +18,7 @@ namespace BizHawk.Client.Common
 		}
 
 		private string _currentDirectory;
+		private string _lastSetDirectory;
 
 		private bool CoolSetCurrentDirectory(string path, string currDirSpeedHack = null)
 		{
@@ -27,24 +28,25 @@ namespace BizHawk.Client.Common
 			// yeah I know, not the smoothest move to compare strings here, in case path normalization is happening at some point
 			// but you got any better ideas?
 			currDirSpeedHack ??= OSTailoredCode.IsUnixHost ? Environment.CurrentDirectory : CWDHacks.Get();
-			if (currDirSpeedHack == path) return true;
+			if (currDirSpeedHack == path)
+			{
+				_lastSetDirectory = path;
+				return true;
+			}
 
 			if (!OSTailoredCode.IsUnixHost) return CWDHacks.Set(target);
 			if (!System.IO.Directory.Exists(_currentDirectory)) return false; //TODO is this necessary with Mono? Linux is fine with the CWD being nonexistent. also, is this necessary with .NET Core on Windows? --yoshi
-			Environment.CurrentDirectory = _currentDirectory;
+			_lastSetDirectory = Environment.CurrentDirectory = _currentDirectory;
 			return true;
 		}
 
 		private void Sandbox(Action callback, Action exceptionCallback)
 		{
-			string savedEnvironmentCurrDir = null;
 			try
 			{
-				savedEnvironmentCurrDir = Environment.CurrentDirectory;
-
-				if (_currentDirectory != null)
+				if (_currentDirectory != null && _currentDirectory != _lastSetDirectory)
 				{
-					CoolSetCurrentDirectory(_currentDirectory, savedEnvironmentCurrDir);
+					CoolSetCurrentDirectory(_currentDirectory);
 				}
 
 				EnvironmentSandbox.Sandbox(callback);
@@ -54,13 +56,6 @@ namespace BizHawk.Client.Common
 				Console.WriteLine(ex);
 				DefaultLogger(ex.ToString());
 				exceptionCallback?.Invoke();
-			}
-			finally
-			{
-				if (_currentDirectory != null)
-				{
-					CoolSetCurrentDirectory(savedEnvironmentCurrDir);
-				}
 			}
 		}
 
