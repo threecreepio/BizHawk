@@ -107,10 +107,6 @@ namespace BizHawk.Client.EmuHawk
 
 		public override void StartLuaDrawing()
 		{
-			if (ScriptList.Count != 0 && GuiLibrary.SurfaceIsNull && !IsUpdateSupressed)
-			{
-				GuiLibrary.DrawNew("emu");
-			}
 		}
 
 		public override void EndLuaDrawing()

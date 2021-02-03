@@ -617,11 +617,6 @@ namespace BizHawk.Client.EmuHawk
 				return;
 			}
 
-			if (LuaImp.GuiLibrary?.SurfaceIsNull == true)
-			{
-				LuaImp.GuiLibrary.DrawNew("emu");
-			}
-
 			foreach (var lf in LuaImp.ScriptList.Where(l => l.Enabled && l.Thread != null && !l.Paused))
 			{
 				try

@@ -53,6 +53,7 @@ namespace BizHawk.Client.EmuHawk
 
 		private Graphics GetGraphics()
 		{
+			if (_GUISurface == null) DrawNew("emu", true);
 			var g = _GUISurface?.GetGraphics() ?? Graphics.FromImage(_nullGraphicsBitmap);
 			var (tx, ty) = Emulator.ScreenLogicalOffsets();
 			if (tx != 0 || ty != 0)
@@ -102,7 +103,7 @@ namespace BizHawk.Client.EmuHawk
 
 		public void ClearGraphics()
 		{
-			_GUISurface.Clear();
+			_GUISurface?.Clear();
 			DrawFinish();
 		}
 
